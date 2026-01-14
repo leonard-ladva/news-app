@@ -14,6 +14,9 @@ class NewsRepository {
         page: Int = 1
     ): ApiResponse {
         return RetrofitInstance.api.getTopHeadlines(
-            country = country, pageSize, page)
+            country = country,
+            pageSize = pageSize,
+            page = page
+        )
     }
 }

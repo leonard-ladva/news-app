@@ -4,7 +4,6 @@ import com.example.newsapp.data.model.ApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-
 interface NewsApi {
     @GET("top-headlines")
     suspend fun getTopHeadlines(

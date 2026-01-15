@@ -1,6 +1,5 @@
 package com.example.newsapp.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.data.model.Article

@@ -31,33 +31,33 @@ class MainActivity : ComponentActivity() {
         setContent {
             NewsAppTheme {
                 val navController = rememberNavController()
-                    NavHost(
-                        navController = navController,
-                        startDestination = "news"
-                    ) {
-                        composable("news") {
-                            NewsScreen(
-                                navController = navController,
-                                viewModel = viewModel,
-                            )
-                        }
-
-                        composable(
-                            "article/{articleUrl}",
-                            arguments = listOf(navArgument("articleUrl") {
-                                type = NavType.StringType
-                            })
-                        ) { backStackEntry ->
-                            val encodedUrl = backStackEntry.arguments?.getString("articleUrl") ?: ""
-                            val articleUrl = java.net.URLDecoder.decode(encodedUrl, "UTF-8")
-                            Log.d("MainActivity", "Article URL: $articleUrl")
-                            ArticleScreen(
-                                articleUrl = articleUrl,
-                                navController = navController,
-                                viewModel = viewModel,
-                            )
-                        }
+                NavHost(
+                    navController = navController,
+                    startDestination = "news"
+                ) {
+                    composable("news") {
+                        NewsScreen(
+                            navController = navController,
+                            viewModel = viewModel,
+                        )
                     }
+
+                    composable(
+                        "article/{articleUrl}",
+                        arguments = listOf(navArgument("articleUrl") {
+                            type = NavType.StringType
+                        })
+                    ) { backStackEntry ->
+                        val encodedUrl = backStackEntry.arguments?.getString("articleUrl") ?: ""
+                        val articleUrl = java.net.URLDecoder.decode(encodedUrl, "UTF-8")
+                        Log.d("MainActivity", "Article URL: $articleUrl")
+                        ArticleScreen(
+                            articleUrl = articleUrl,
+                            navController = navController,
+                            viewModel = viewModel,
+                        )
+                    }
+                }
             }
         }
     }

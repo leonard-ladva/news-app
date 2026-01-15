@@ -24,11 +24,13 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import coil3.compose.AsyncImage
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.ui.viewmodel.NewsViewModel
 
@@ -69,16 +71,16 @@ fun ArticleScreen(
                     .padding(padding)
                     .verticalScroll(rememberScrollState())
             ) {
-//                article.urlToImage?.let {
-//                    AsyncImage(
-//                        model = it,
-//                        contentDescription = null,
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .height(200.dp),
-//                        contentScale = ContentScale.Crop
-//                    )
-//                }
+                article?.urlToImage?.let {
+                    AsyncImage(
+                        model = it,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp),
+                        contentScale = ContentScale.Crop
+                    )
+                }
 
                 Spacer(Modifier.height(16.dp))
 
@@ -97,6 +99,13 @@ fun ArticleScreen(
                 )
 
                 Spacer(Modifier.height(16.dp))
+
+                Text (
+                    text = article?.content ?: "",
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+
 
 //                Button(
 //                    onClick = { viewModel.saveArticle(article) },

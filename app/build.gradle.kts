@@ -72,7 +72,7 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 
-    // Okhttp
+    // Okhttp for API http requests
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
@@ -81,5 +81,9 @@ dependencies {
 
     // Jetpack Compose Navigation
     implementation("androidx.navigation:navigation-compose:2.7.0")
+
+    // Coil for async image loading
+    implementation("io.coil-kt.coil3:coil-compose:3.2.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.2.0")
 
 }

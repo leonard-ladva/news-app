@@ -1,5 +1,6 @@
 package com.example.newsapp.ui.screens
 
+import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -65,57 +67,15 @@ fun ArticleScreen(
             )
         },
         content = { padding ->
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .verticalScroll(rememberScrollState())
-            ) {
-                article?.urlToImage?.let {
-                    AsyncImage(
-                        model = it,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
-                        contentScale = ContentScale.Crop
-                    )
-                }
-
-                Spacer(Modifier.height(16.dp))
-
-                Text(
-                    text = article?.title ?: "",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-
-                Spacer(Modifier.height(8.dp))
-
-                Text(
-                    text = article?.description ?: "",
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-
-                Spacer(Modifier.height(16.dp))
-
-                Text (
-                    text = article?.content ?: "",
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-
-
-//                Button(
-//                    onClick = { viewModel.saveArticle(article) },
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .padding(horizontal = 16.dp)
-//                ) {
-//                    Text("Save")
-//                }
-            }
+            AndroidView(
+                factory = { context ->
+                    WebView(context).apply {
+                        settings.javaScriptEnabled = true
+                        loadUrl(articleUrl)
+                    }
+                },
+                modifier = Modifier.fillMaxSize().padding(padding)
+            )
         }
     )
 }

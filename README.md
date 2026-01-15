@@ -1,4 +1,8 @@
 # News app
+<img height="600" alt="Screenshot_20260115_175848" src="https://github.com/user-attachments/assets/b0fb86ef-e5c0-44e8-9113-82aa9c528d9f" />
+<img height="600" alt="Screenshot_20260115_175916" src="https://github.com/user-attachments/assets/8f73fcdc-89b0-40f7-93cc-369250591a3f" />
+<img width="600"  alt="Screenshot_20260115_180344" src="https://github.com/user-attachments/assets/b02ef23a-d3a2-4244-966d-c3f3f75f81c2" />
+
 ## Dev Comment
 This project is my first Android application written in Kotlin. While I have prior experience developing in Flutter, this was my first time working with Kotlin and Jetpack Compose.
 

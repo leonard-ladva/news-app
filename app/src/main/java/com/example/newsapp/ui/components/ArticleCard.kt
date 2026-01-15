@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.newsapp.Screen
 import com.example.newsapp.data.model.Article
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets

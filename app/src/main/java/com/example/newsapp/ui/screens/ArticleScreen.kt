@@ -37,7 +37,8 @@ import com.example.newsapp.ui.viewmodel.NewsViewModel
 fun ArticleScreen(
     articleUrl: String,
     navController: NavController,
-    viewModel: NewsViewModel
+    viewModel: NewsViewModel,
+    modifier: Modifier = Modifier
 ) {
     val article = viewModel.getArticleByUrl(articleUrl)
 
@@ -53,7 +54,7 @@ fun ArticleScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(article?.title ?: "Article") },
+                title = { Text( "Article") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")

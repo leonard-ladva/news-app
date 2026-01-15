@@ -13,6 +13,10 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -29,59 +33,66 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.newsapp.ui.viewmodel.NewsUiState
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewsScreen(
     viewModel: NewsViewModel = viewModel(),
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
-//    val articles by viewModel.articles.collectAsState()
     val uiState by viewModel.uiState.collectAsState()
-
-
     val gridState = rememberLazyGridState()
 
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-
     val columns = if (isLandscape) 3 else 2
 
-    when (uiState) {
-        is NewsUiState.Loading -> {
-            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
+    Scaffold (
+        topBar = {
+            TopAppBar(
+                title = { Text("News") }
+            )
         }
-        is NewsUiState.Error -> {
-           val message = (uiState as NewsUiState.Error).message
-            ErrorScreen(message) { viewModel.loadFirstPage() }
-        }
-        is NewsUiState.Success -> {
-            val articles = (uiState as NewsUiState.Success).articles
-            LazyVerticalGrid(
-                state = gridState,
-                columns = GridCells.Fixed(columns),
-                modifier = modifier.fillMaxSize(),
-                contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(articles) { article ->
-                    ArticleCard(article, navController)
+    ) { insidePadding ->
+        when (uiState) {
+            is NewsUiState.Loading -> {
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
                 }
-                item(span = { GridItemSpan(maxLineSpan) }) {
-                    if ((uiState as NewsUiState.Success).isPaging) {
-                        Box(
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            CircularProgressIndicator()
+            }
+            is NewsUiState.Error -> {
+               val message = (uiState as NewsUiState.Error).message
+                ErrorScreen(message) { viewModel.loadFirstPage() }
+            }
+            is NewsUiState.Success -> {
+                val articles = (uiState as NewsUiState.Success).articles
+                LazyVerticalGrid(
+                    state = gridState,
+                    columns = GridCells.Fixed(columns),
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(insidePadding),
+                    contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(articles) { article ->
+                        ArticleCard(article, navController)
+                    }
+                    item(span = { GridItemSpan(maxLineSpan) }) {
+                        if ((uiState as NewsUiState.Success).isPaging) {
+                            Box(
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator()
+                            }
                         }
                     }
-                }
 
+                }
             }
         }
     }

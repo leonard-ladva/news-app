@@ -74,9 +74,6 @@ class NewsViewModel(
     }
 
     fun getArticleByUrl(url: String): Article? {
-        for (article in allArticles) {
-            Log.d("NewsViewModel", "$article.url")
-        }
         return allArticles.find { it.url == url }
     }
 

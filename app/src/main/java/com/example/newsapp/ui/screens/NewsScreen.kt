@@ -26,11 +26,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.newsapp.ui.viewmodel.NewsUiState
 
 @Composable
 fun NewsScreen(
     viewModel: NewsViewModel = viewModel(),
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
 //    val articles by viewModel.articles.collectAsState()
@@ -65,7 +67,7 @@ fun NewsScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(articles) { article ->
-                    ArticleCard(article)
+                    ArticleCard(article, navController)
                 }
                 item(span = { GridItemSpan(maxLineSpan) }) {
                     if ((uiState as NewsUiState.Success).isPaging) {

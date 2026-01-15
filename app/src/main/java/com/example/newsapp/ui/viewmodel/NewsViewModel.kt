@@ -1,5 +1,6 @@
 package com.example.newsapp.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.data.model.Article
@@ -70,6 +71,13 @@ class NewsViewModel(
                 isPaging = false
             }
         }
+    }
+
+    fun getArticleByUrl(url: String): Article? {
+        for (article in allArticles) {
+            Log.d("NewsViewModel", "$article.url")
+        }
+        return allArticles.find { it.url == url }
     }
 
 }
